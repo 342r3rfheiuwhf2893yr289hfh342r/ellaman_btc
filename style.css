@@ -1,0 +1,176 @@
+:root {
+    --secondary-color: #dc3545;  /* Задает переменную цвета  --secondary-color со значением #dc3545 (красный оттенок). */
+    --accent-color: #FFD700;     /* Задает переменную цвета --accent-color со значением #FFD700 (золотистый). */
+    --text-color: #333;          /* Задает переменную цвета --text-color со значением #333 (темно-серый). */
+    --background-color: #f0f0f0; /* Задает переменную цвета --background-color со значением #f0f0f0 (светло-серый). */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Задает переменную цвета тени --shadow-color с прозрачностью. */
+    --main-font-size: 1rem;     /* Задает базовой размер шрифта в 1rem (обычно 16px). */
+    --mobile-breakpoint: 768px; /* Задает точку разрыва для мобильных устройств (768 пикселей ширины). */
+    --small-mobile-breakpoint: 480px; /* Задает точку разрыва для маленьких мобильных устройств (480 пикселей ширины). */
+    --large-desktop-breakpoint: 1200px; /* Задает точку разрыва для больших настольных компьютеров (1200 пикселей ширины). */
+    --animation-duration: 0.8s; /* Задает длительность анимации в 0.8 секунды. */
+    --animation-easing: ease-in-out; /* Задает тип сглаживания анимации. */
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: var(--main-font-size);
+    overflow: hidden;
+    background-color: black;
+    border-radius: 5px;
+  }
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.background-container {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .background-container::before {
+    content: ""; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    z-index: -1; 
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+    background-size: 400% 400%; 
+    animation: gradientAnimation 15s ease infinite; 
+  }
+  
+  .content-container {
+    z-index: 1; 
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+    opacity: 0; 
+    transform: translateY(-50px); 
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out; 
+  }
+  .content-container.show {
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-around; /* Равномерное распределение элементов */
+    align-items: center;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    margin: 1em;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    gap: 1em;
+    animation: headerSlideIn var(--animation-duration) var(--animation-easing);
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #00a699;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    /* Убрали flex-grow */
+}
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* Убрали justify-content: center; */
+}
+
+.nav li {
+    margin: 0 0.5em;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.3s ease;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+    text-align: center; /* Центрируем текст внутри ссылки */
+    display: inline-block; /*Делаем ссылку блочным элементом для корректной работы text-align*/
+}
+.contact,
+.buttons {
+    text-align: center;
+    /*align-self: flex-end;  Убрали это, т.к. элементы на одной строке */
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+}
+
+.phone {
+    color: #00a699;
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    gap: 1em;
+}
+  .glow-button {
+    background-color: #333; /* Цвет фона */
+    color: white; /* Цвет текста */
+    padding: 0.8em 1.5em; /* Отступы */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор указывает на то, что это кнопка */
+    transition: all 0.3s ease; /* Плавное изменение стилей */
+    box-shadow: 0 0 10px var(--shadow-color); /* Тень */
+    animation: pulseSize 1s ease-in-out infinite;
+  }
+  
+  .glow-button:hover {
+    background-image: linear-gradient(to right, var(--accent-color), var(--accent-color)); /* Градиентный фон */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7); /* Более сильная тень */
+  }
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes headerSlideIn {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animated-element {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+  }
+  
+  .animated-element.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @keyframes pulseSize {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
